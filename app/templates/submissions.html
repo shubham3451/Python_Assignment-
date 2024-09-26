@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Submissions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #343a40;
+        }
+        .submission {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .submission p {
+            margin: 5px 0;
+            color: #495057;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .no-submissions {
+            text-align: center;
+            font-size: 18px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Submissions</h1>
+    </header>
+    <main>
+        {% if submissions %}
+            {% for submission in submissions %}
+                <div class="submission">
+                    <p><strong>Name:</strong> {{ submission.name }}</p>
+                    <p><strong>Email:</strong> {{ submission.email }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-submissions">No submissions yet. Be the first!</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>Contact us: info@weatherinfo.com | Phone: +91839494848</p>
+    </footer>
+</body>
+</html>
+
+

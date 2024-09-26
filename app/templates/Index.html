@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        main {
+            padding: 20px;
+        }
+        .current-weather, .forecast {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .current-weather {
+            border-left: 5px solid #4CAF50;
+        }
+        .forecast {
+            border-left: 5px solid #2196F3;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p, li {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            bottom: 0;
+        }
+        input[type="text"], input[type="email"], input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>Weather Info</h1>
+        <nav>
+            <ul>
+                <li><a href="#current">Current Weather</a></li>
+                <li><a href="#forecast">Forecast</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="current">
+            <h2>Current Weather</h2>
+            {% if weather_data %}
+                <p>City: {{ weather_data.name }}</p>
+                <p>Temperature: {{ weather_data.main.temp }}°C</p>
+                <p>Weather: {{ weather_data.weather.0.description }}</p>
+                <p>Humidity: {{ weather_data.main.humidity }}%</p>
+            {% else %}
+                <p>Could not retrieve weather data.</p>
+            {% endif %}
+            <p><strong>Current date and time:</strong> {{ current_time }}</p>
+            <p><strong>Quotes of the moment:</strong></p>
+            <ul>
+                {% for quote in current_quotes %}
+                    <li>"{{ quote }}"</li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="forecast">
+            <section id="forecast">
+            <h2>Weather Forecast</h2>
+            {% if forecast_data %}
+                <ul>
+                    {% for item in forecast_data.list %}
+                        <li>
+                            Date: {{ item.dt_txt }} - 
+                            Temp: {{ item.main.temp }}°C - 
+                            Weather: {{ item.weather.0.description }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Could not retrieve forecast data.</p>
+            {% endif %}
+        </section>
+        </section>
+        <section class="form-container">
+            <h2>Enter User Details</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+    </main>
+    <section id="contact">
+    <footer>
+        <p>Contact us:</p>
+        <p>Email: info@weatherinfo.com</p>
+        <p>Phone: +91839494848</p>
+        <p>Address: Ahmedabad, Gujarat, India, 380001</p>
+    </footer>
+    </section>
+</body>
+</html>
+
